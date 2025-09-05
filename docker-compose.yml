@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: schoolmaster-db
+    environment:
+      POSTGRES_DB: schoolmaster
+      POSTGRES_USER: db
+      POSTGRES_PASSWORD: passer
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistance des données
+    ports:
+      - "5432:5432"
+    networks:
+      - schoolnet
+    healthcheck:  # Vérification de santé
+      test: ["CMD-SHELL", "pg_isready -U db -d schoolmaster"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: schoolmaster-app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/schoolmaster
+      SPRING_DATASOURCE_USERNAME: db
+      SPRING_DATASOURCE_PASSWORD: passer
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
+      SPRING_JPA_SHOW_SQL: true
+    networks:
+      - schoolnet
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+networks:
+  schoolnet:
+    driver: bridge
+
+volumes:
+  postgres_data:

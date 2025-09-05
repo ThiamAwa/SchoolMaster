@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails de la classe</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body class="sb-nav-fixed">
+
+
+<div id="layoutSidenav">
+
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Détails de la classe</h1>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Informations détaillées
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-sm-3">ID:</dt>
+                            <dd class="col-sm-9" th:text="${classe.id}"></dd>
+
+                            <dt class="col-sm-3">Nom:</dt>
+                            <dd class="col-sm-9" th:text="${classe.className}"></dd>
+
+                            <dt class="col-sm-3">Description:</dt>
+                            <dd class="col-sm-9" th:text="${classe.description}"></dd>
+
+                            <!-- Ajoutez d'autres champs si nécessaire -->
+                        </dl>
+
+                        <a th:href="@{/classes/list}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Retour à la liste
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+</div>
+</body>
+</html>

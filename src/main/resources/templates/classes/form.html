@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${classe.id} ? 'Modifier Classe' : 'Ajouter Classe'"></title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body class="sb-nav-fixed">
+<!-- Barre de navigation -->
+
+
+<div id="layoutSidenav">
+
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4" th:text="${classe.id} ? 'Modifier Classe' : 'Ajouter Classe'"></h1>
+
+                <form th:action="${classe.id} != null ? '/classes/update/' + ${classe.id} : '/classes/save'"
+                      method="post" th:object="${classe}">
+
+
+                <input type="hidden" th:field="*{id}">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nom de la classe</label>
+                        <input type="text" class="form-control"
+                               th:field="*{className}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" th:field="*{description}"></textarea>
+                    </div>
+
+                    <!-- 🔹 Sélecteur de Secteur -->
+                    <div class="mb-3">
+                        <label class="form-label">Secteur</label>
+                        <select class="form-select" name="sectorId" required>
+                            <option th:each="sector : ${sectors}"
+                                    th:value="${sector.id}"
+                                    th:text="${sector.name}"
+                                    th:selected="${classe.sectorId} == ${sector.id}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span th:text="${classe.id} != null ? 'Mettre à jour' : 'Enregistrer'"></span>
+                    </button>
+                    <a th:href="@{/classes/list}" class="btn btn-secondary">Annuler</a>
+                </form>
+
+            </div>
+        </main>
+
+        <!-- Pied de page -->
+
+    </div>
+</div>
+</body>
+</html>

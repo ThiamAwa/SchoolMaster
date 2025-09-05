@@ -1,0 +1,44 @@
+<!--<div th:fragment="list-content">-->
+<!--    <h1>Liste des classes</h1>-->
+
+<!--    &lt;!&ndash; Bouton ajouter &ndash;&gt;-->
+<!--    <a class="btn btn-primary mb-3" th:href="@{/classes/form}">-->
+<!--        Ajouter une classe-->
+<!--    </a>-->
+
+<!--    <table id="datatablesSimple" class="table table-striped">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>Nom de la classe</th>-->
+<!--            <th>Description</th>-->
+<!--            <th>Actions</th> &lt;!&ndash; Colonne ajoutée pour les boutons &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="classe : ${classes}">-->
+<!--            <td th:text="${classe.id}"></td>-->
+<!--            <td th:text="${classe.className}"></td>-->
+<!--            <td th:text="${classe.description}"></td>-->
+<!--            <td>-->
+<!--                <a th:href="@{'/classes/details/' + ${classe.id}}"-->
+<!--                   class="btn btn-info btn-sm">-->
+<!--                    <i class="fas fa-eye"></i> Détails-->
+<!--                </a>-->
+<!--                &lt;!&ndash; Bouton Modifier &ndash;&gt;-->
+<!--                <a th:href="@{'/classes/edit/' + ${classe.id}}"-->
+<!--                   class="btn btn-warning btn-sm">-->
+<!--                    <i class="fas fa-edit"></i> Modifier-->
+<!--                </a>-->
+
+<!--                &lt;!&ndash; Bouton Supprimer &ndash;&gt;-->
+<!--                <a th:href="@{'/classes/delete/' + ${classe.id}}"-->
+<!--                   class="btn btn-danger btn-sm ml-2"-->
+<!--                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette classe ?');">-->
+<!--                    <i class="fas fa-trash"></i> Supprimer-->
+<!--                </a>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
