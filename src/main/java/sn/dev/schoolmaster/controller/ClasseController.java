@@ -21,7 +21,7 @@ public class ClasseController {
     private IClasseService classeService;
 
     @Autowired
-    private ISectorService sectorService; // ✅ injecter le service des secteurs
+    private ISectorService sectorService;
 
     // Afficher toutes les classes avec option de filtrage
     @GetMapping("/list")
@@ -42,7 +42,7 @@ public class ClasseController {
 //        model.addAttribute("content", "classes/list :: classes-content");
         model.addAttribute("content", "classes/list");
 
-        return "layout";
+        return "classes/list";
     }
 
     // Formulaire pour ajouter/modifier une classe
@@ -87,7 +87,7 @@ public class ClasseController {
                                @ModelAttribute("classe") ClasseDTO classeDTO,
                                @RequestParam("sectorId") Long sectorId) {
         classeDTO.setId(id);
-        classeDTO.setSectorId(sectorId); // ✅ associer le secteur choisi
+        classeDTO.setSectorId(sectorId);
         classeService.save(classeDTO);
         return "redirect:/classes/list";
     }
@@ -102,8 +102,12 @@ public class ClasseController {
     @GetMapping("/details/{id}")
     public String showClassDetails(@PathVariable Long id, Model model) {
         ClasseDTO classe = classeService.getById(id)
-                .orElseThrow(() -> new RuntimeException("Classe non trouvée"));
+                .orElseThrow(() -> new EntityNotFoundException("Classe non trouvée avec ID: " + id));
+
         model.addAttribute("classe", classe);
         return "classes/details";
     }
+
+
+
 }

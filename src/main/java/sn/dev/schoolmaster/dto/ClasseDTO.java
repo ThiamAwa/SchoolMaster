@@ -22,5 +22,6 @@ public class ClasseDTO {
     @Size(max = 255, message = "La description ne doit pas dépasser 255 caractères")
     private String description;
     private Long sectorId;
+    private String sectorName;
 
 }

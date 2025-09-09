@@ -1,21 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Ajouter un secteur</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<h2>Ajouter un secteur</h2>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body class="sb-nav-fixed bg-light">
 
-<form th:action="@{/sectors/save}" th:object="${sector}" method="post">
-    <input type="hidden" th:field="*{id}" />
-    <input type="text" th:field="*{name}" />
-    <button type="submit">Enregistrer</button>
-</form>
+<!-- Navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
 
+<div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div id="layoutSidenav_nav">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+    </div>
 
+    <!-- Contenu -->
+    <div id="layoutSidenav_content">
+        <main class="container-fluid px-4 py-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
 
+                    <!-- Alert messages -->
+                    <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span th:text="${success}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span th:text="${error}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
 
-<a th:href="@{/sectors}">Retour à la liste</a>
+                    <!-- Card formulaire -->
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header text-dark">
+                            <i class="fas fa-plus-circle me-2"></i>
+                            <span th:text="${sector.id} != null ? 'Modifier Secteur' : 'Ajouter Secteur'"></span>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/sectors/save}" th:object="${sector}" method="post">
+                                <input type="hidden" th:field="*{id}" />
+
+                                <!-- Nom du secteur -->
+                                <div class="mb-3">
+                                    <label for="name" class="form-label fw-semibold">Nom du secteur</label>
+                                    <input type="text" th:field="*{name}" id="name"
+                                           class="form-control" placeholder="Ex : Informatique" required />
+                                    <div class="form-text">Donnez un nom descriptif et clair.</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                         th:errors="*{name}"></div>
+                                </div>
+
+                                <!-- Boutons -->
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a th:href="@{/sectors/list}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                                    </a>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i>
+                                        <span th:text="${sector.id} != null ? 'Mettre à jour' : 'Enregistrer'"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/scripts.js}"></script>
 </body>
 </html>

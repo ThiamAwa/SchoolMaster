@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Détails de la classe</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet">
-</head>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
 <body class="sb-nav-fixed">
+
+<!-- Navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+
 
 
 <div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div id="layoutSidenav_nav">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+    </div>
 
-
+    <!-- Contenu -->
     <div id="layoutSidenav_content">
-        <main>
+        <main class="container-fluid px-4">
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Détails de la classe</h1>
 
@@ -32,7 +37,8 @@
                             <dt class="col-sm-3">Description:</dt>
                             <dd class="col-sm-9" th:text="${classe.description}"></dd>
 
-                            <!-- Ajoutez d'autres champs si nécessaire -->
+                            <dt class="col-sm-3">Secteur:</dt>
+                            <dd class="col-sm-9" th:text="${classe.sectorName} ?: 'Non défini'"></dd>
                         </dl>
 
                         <a th:href="@{/classes/list}" class="btn btn-secondary">
@@ -41,10 +47,16 @@
                     </div>
                 </div>
             </div>
+
         </main>
 
-
+        <!-- Footer -->
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 </body>
 </html>

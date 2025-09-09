@@ -25,27 +25,35 @@ public class ClasseService implements IClasseService {
     private ClasseMapper classeMapper;
     private MessageSource messageSource;
 
+
     @Override
     public List<ClasseDTO> getAll() {
         List<ClasseEntity> classes = classeRepository.findAll();
         return classes.stream()
-                .map(classeMapper::toClasseDto) // MapStruct ou votre mapper
+                .map(entity -> {
+                    ClasseDTO dto = classeMapper.toClasseDto(entity);
+                    if(entity.getSector() != null) {
+                        dto.setSectorName(entity.getSector().getName());
+                    } else {
+                        dto.setSectorName("Non défini");
+                    }
+                    return dto;
+                })
                 .collect(Collectors.toList());
-
     }
+
 
 
     @Override
     public ClasseDTO save(ClasseDTO classeDTO) {
         String className = classeDTO.getClassName();
-        Optional<ClasseEntity> existingClasse = classeRepository.findAll().stream()
-                .filter(c -> c.getClassName().equalsIgnoreCase(className))
-                .findFirst();
+        Optional<ClasseEntity> existingClasse = classeRepository.findByClassName(className);
 
         if (existingClasse.isPresent()) {
-            throw new DuplicateException(
-                    String.format("Classe with the name '%s' already exists.", className)
-            );
+            // Si c'est une mise à jour, ignorer si c'est la même classe
+            if (classeDTO.getId() == null || !existingClasse.get().getId().equals(classeDTO.getId())) {
+                throw new DuplicateException("Classe with the name '" + classeDTO.getClassName() + "' already exists.");
+            }
         }
         ClasseEntity entity = classeMapper.toClasseEntity(classeDTO);
         ClasseEntity saved = classeRepository.save(entity);

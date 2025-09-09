@@ -50,14 +50,17 @@ public class SectorService implements ISectorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+
     public Optional<SectorDTO> getById(Long id) {
         SectorEntity entity = sectorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
-                        messageSource.getMessage("sector.notfound", new Object[]{id}, Locale.getDefault())
+                        messageSource.getMessage("sector.notfound",
+                                new Object[]{id}, Locale.getDefault())
                 ));
+
         return Optional.of(sectorMapper.toSectorDto(entity));
     }
+
 
     @Override
     @Transactional

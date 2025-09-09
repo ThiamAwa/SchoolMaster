@@ -1,0 +1,18 @@
+<nav th:fragment="sidebar" class="sb-sidenav accordion sb-sidenav-dark">
+  <div class="sb-sidenav-menu">
+    <div class="nav">
+      <a class="nav-link" th:href="@{/classes/list}">
+        <div class="sb-nav-link-icon"><i class="fas fa-school"></i></div>
+        Classes
+      </a>
+      <a class="nav-link" th:href="@{/sectors/list}">
+        <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+        Secteurs
+      </a>
+    </div>
+  </div>
+  <div class="sb-sidenav-footer">
+    <div class="small">Logged in as:</div>
+    SchoolMaster
+  </div>
+</nav>

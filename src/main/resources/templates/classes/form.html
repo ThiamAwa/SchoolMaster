@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${classe.id} ? 'Modifier Classe' : 'Ajouter Classe'"></title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet">
-</head>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
 <body class="sb-nav-fixed">
-<!-- Barre de navigation -->
+
+<!-- Navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+
 
 
 <div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div id="layoutSidenav_nav">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+    </div>
 
-
+    <!-- Contenu -->
     <div id="layoutSidenav_content">
-        <main>
+        <main class="container-fluid px-4">
             <div class="container-fluid px-4">
                 <h1 class="mt-4" th:text="${classe.id} ? 'Modifier Classe' : 'Ajouter Classe'"></h1>
 
@@ -21,7 +25,7 @@
                       method="post" th:object="${classe}">
 
 
-                <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{id}">
 
                     <div class="mb-3">
                         <label class="form-label">Nom de la classe</label>
@@ -55,9 +59,13 @@
             </div>
         </main>
 
-        <!-- Pied de page -->
-
+        <!-- Footer -->
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 </body>
 </html>

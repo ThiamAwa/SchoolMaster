@@ -1,44 +1,72 @@
-<!--<div th:fragment="list-content">-->
-<!--    <h1>Liste des classes</h1>-->
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body class="sb-nav-fixed">
 
-<!--    &lt;!&ndash; Bouton ajouter &ndash;&gt;-->
-<!--    <a class="btn btn-primary mb-3" th:href="@{/classes/form}">-->
-<!--        Ajouter une classe-->
-<!--    </a>-->
+<!-- Navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
 
-<!--    <table id="datatablesSimple" class="table table-striped">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>ID</th>-->
-<!--            <th>Nom de la classe</th>-->
-<!--            <th>Description</th>-->
-<!--            <th>Actions</th> &lt;!&ndash; Colonne ajoutée pour les boutons &ndash;&gt;-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="classe : ${classes}">-->
-<!--            <td th:text="${classe.id}"></td>-->
-<!--            <td th:text="${classe.className}"></td>-->
-<!--            <td th:text="${classe.description}"></td>-->
-<!--            <td>-->
-<!--                <a th:href="@{'/classes/details/' + ${classe.id}}"-->
-<!--                   class="btn btn-info btn-sm">-->
-<!--                    <i class="fas fa-eye"></i> Détails-->
-<!--                </a>-->
-<!--                &lt;!&ndash; Bouton Modifier &ndash;&gt;-->
-<!--                <a th:href="@{'/classes/edit/' + ${classe.id}}"-->
-<!--                   class="btn btn-warning btn-sm">-->
-<!--                    <i class="fas fa-edit"></i> Modifier-->
-<!--                </a>-->
 
-<!--                &lt;!&ndash; Bouton Supprimer &ndash;&gt;-->
-<!--                <a th:href="@{'/classes/delete/' + ${classe.id}}"-->
-<!--                   class="btn btn-danger btn-sm ml-2"-->
-<!--                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette classe ?');">-->
-<!--                    <i class="fas fa-trash"></i> Supprimer-->
-<!--                </a>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</div>-->
+
+
+<div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div id="layoutSidenav_nav">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+    </div>
+
+    <!-- Contenu -->
+    <div id="layoutSidenav_content">
+        <main class="container-fluid px-4">
+            <div>
+                <div class="d-flex justify-content-between mb-3">
+                    <h2>Liste des classes</h2>
+                    <a class="btn btn-primary" th:href="@{/classes/form}">Ajouter une classe</a>
+                </div>
+
+                <form class="mb-3 d-flex align-items-center" th:action="@{/classes/list}" method="get">
+                    <input type="text" class="form-control me-2 w-auto" style="width: 300px;" placeholder="Rechercher une classe..." name="search" th:value="${searchTerm}">
+                    <button class="btn btn-secondary" type="submit">Rechercher</button>
+                </form>
+
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Secteur</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="classe : ${classes}">
+                        <td th:text="${classe.id}"></td>
+                        <td th:text="${classe.className}"></td>
+                        <td th:text="${classe.description}"></td>
+                        <td th:text="${classe.sectorName}"></td>
+
+                        <td>
+                            <a th:href="@{'/classes/form/' + ${classe.id}}" class="btn btn-warning btn-sm">Modifier</a>
+                            <a th:href="@{'/classes/delete/' + ${classe.id}}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Voulez-vous vraiment supprimer cette classe ?');">Supprimer</a>
+                            <a th:href="@{'/classes/details/' + ${classe.id}}" class="btn btn-info btn-sm">Détails</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+</body>
+</html>

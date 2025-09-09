@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {SectorMapper.class})
 public interface ClasseMapper {
-    @Mapping(source = "sector.id", target = "sectorId")
+    @Mapping(target = "sectorName", source = "sector.name")
     ClasseDTO toClasseDto(ClasseEntity classeEntity);
 
     @Mapping(source = "sectorId", target = "sector.id")
