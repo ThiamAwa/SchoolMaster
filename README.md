@@ -8,8 +8,4 @@
 ![Docker](https://img.shields.io/badge/Containerized-Docker-blue)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-### 🧱 CI/CD & Docker Status
 
-![Build](https://img.shields.io/github/actions/workflow/status/<TON_UTILISATEUR>/SchoolMaster/maven.yml?label=Build&logo=github)
-![Docker Image](https://img.shields.io/badge/Docker%20Image-Build%20Success-blue?logo=docker)
-![Container](https://img.shields.io/badge/Container-Up-green?logo=docker)
